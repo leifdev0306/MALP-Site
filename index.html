@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Amiga la Pulmonar - Simulador Médico</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6a1b9a;
+            --secondary-color: #9c27b0;
+            --accent-color: #00bcd4;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #ff8a80;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 5% 3rem;
+            background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle fill="%23e1bee7" cx="2" cy="2" r="2"></circle></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"></rect></svg>');
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge {
+            background: var(--white);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* BOTONES */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(106, 27, 154, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(106, 27, 154, 0.4);
+        }
+
+        /* FEATURES SECTION */
+        .features {
+            padding: 4rem 5%;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* STATS SECTION */
+        .stats {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .stat-item h2 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* DOWNLOAD SECTION */
+        .download-section {
+            padding: 5rem 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            background: var(--white);
+        }
+
+        .download-info {
+            max-width: 500px;
+        }
+
+        .download-info h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .download-info ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .download-info ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .download-info ul li i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .qr-box {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .qr-box img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { gap: 2rem; }
+            .download-section { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-lungs"></i> Mi Amiga la Pulmonar
+        </div>
+        <div>
+            <a href="#descargar" class="btn btn-primary" style="padding: 10px 20px; font-size: 1rem;">Descargar App</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="badges">
+            <span class="badge"><i class="fa-solid fa-gamepad"></i> Unreal Engine 5.6</span>
+            <span class="badge"><i class="fa-solid fa-stethoscope"></i> Validado Clínicamente</span>
+            <span class="badge"><i class="fa-solid fa-mobile-screen"></i> Android</span>
+        </div>
+        <h1>Transformando el diagnóstico prenatal</h1>
+        <p>El primer simulador móvil gamificado para el entrenamiento en cardiología fetal. Domina la vista de tres vasos y tráquea (3VT) con 25 patologías generadas dinámicamente.</p>
+        <a href="#descargar" class="btn btn-primary">Descargar APK Ahora <i class="fa-solid fa-download" style="margin-left: 10px;"></i></a>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features">
+        <h2 class="section-title">¿Por qué usar Mi Amiga la Pulmonar?</h2>
+        <div class="grid-features">
+            <div class="feature-card">
+                <i class="fa-solid fa-heart-pulse feature-icon"></i>
+                <h3>Simulación Interactiva</h3>
+                <p>Entrena con un algoritmo generador de 25 patologías (Posición, Tamaño, Número) validado con una precisión clínica del 98.3%.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-coins feature-icon"></i>
+                <h3>Gamificación Médica</h3>
+                <p>Gana "Fetcoins" por aciertos, usa el comodín tutor para asistencia y mantén la tensión cognitiva con el sistema de 3 vidas.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-cloud-arrow-down feature-icon"></i>
+                <h3>Modo Offline Total</h3>
+                <p>Arquitectura híbrida diseñada para la realidad hospitalaria. La lógica de diagnóstico reside 100% en tu dispositivo, sin necesidad de internet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <h2 class="section-title" style="color: white;">Resultados de Validación</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>98.3%</h2>
+                <p>Precisión Algorítmica Clínica</p>
+            </div>
+            <div class="stat-item">
+                <h2>86.2</h2>
+                <p>Puntuación SUS (Usabilidad Excelente)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section class="download-section" id="descargar">
+        <div class="download-info">
+            <h2>Lleva el futuro de la ecografía fetal en tu bolsillo</h2>
+            <p>Descarga directamente el archivo APK. Compatible con dispositivos Android modernos. No necesitas Google Play.</p>
+            
+            <ul>
+                <li><i class="fa-solid fa-check-circle"></i> 100% Gratuito para entrenamiento</li>
+                <li><i class="fa-solid fa-check-circle"></i> Desarrollado por la Universidad de las Ciencias Informáticas</li>
+                <li><i class="fa-solid fa-check-circle"></i> Avalado por especialistas en Cardiología Fetal</li>
+            </ul>
+
+            <!-- REEMPLAZA EL ENLACE DEL HREF CON TU ENLACE REAL DE DESCARGA -->
+            <a href="https://malpserver.pythonanywhere.com/media/apps/MiAmigaLaPulmonar.apk" class="btn btn-primary" style="width: 100%; text-align: center;">
+                <i class="fa-brands fa-android"></i> Descargar APK Directo
+            </a>
+            
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #d32f2f;">
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Nota:</strong> Al no estar en Play Store, Android te pedirá activar "Instalar apps de fuentes desconocidas". Es totalmente seguro.
+            </p>
+        </div>
+
+        <div class="qr-box">
+            <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Escanea para descargar</h3>
+            <!-- GENERA TU QR REAL Y REEMPLAZA ESTA URL -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://malpserver.pythonanywhere.com/media/apps/MiAmigaLaPulmonar.apk" alt="Código QR de Descarga">
+            <p style="font-size: 0.9rem; color: var(--text-light);">Apunta con la cámara de tu móvil</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>Mi Amiga la Pulmonar</strong> &copy; 2024</p>
+        <p>Desarrollado por Ing. Javier Ernesto Perdomo Batista & Dr. Carlos García Guevara</p>
+        <p>Contacto: <a href="mailto:leifdev0306@gmail.com">leifdev0306@gmail.com</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.5;">Facultad de Tecnologías Interactivas - Universidad de las Ciencias Informáticas</p>
+    </footer>
+
+</body>
+</html>
