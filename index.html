@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Amiga la Pulmonar - Simulador Médico</title>
-    <!-- Fuentes modernas -->
+    <title>Mi Amiga la Pulmonar - Simulador Médico Premium</title>
+    
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Iconos FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Librerías Dinámicas -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #5e17eb;
-            --primary-dark: #4310ab;
-            --secondary: #a855f7;
+            --primary: #6d28d9;
+            --primary-glow: #8b5cf6;
+            --secondary: #c026d3;
             --accent: #06b6d4;
+            --bg-dark: #09090b;
             --bg-light: #f8fafc;
-            --text-main: #1e293b;
+            --text-main: #0f172a;
             --text-muted: #64748b;
             --white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: default;
         }
 
         body {
@@ -36,17 +42,41 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3, .logo {
+        h1, h2, h3, h4, .logo {
             font-family: 'Outfit', sans-serif;
         }
 
-        /* HEADER GLASSMORPHISM */
+        /* FONDO DINÁMICO */
+        .bg-orbs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        .orb-1 { width: 400px; height: 400px; background: #d8b4fe; top: -100px; left: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: #67e8f9; bottom: 20%; right: -50px; animation-delay: -5s; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* HEADER PREMIUM */
         header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -55,55 +85,82 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
-            color: var(--primary-dark);
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
         .logo i {
             font-size: 2rem;
-            color: var(--secondary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* BOTONES */
+        /* BOTONES NEÓN */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 16px 36px;
+            padding: 16px 40px;
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             cursor: pointer;
             border: none;
             font-family: 'Outfit', sans-serif;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--text-main);
             color: var(--white);
-            box-shadow: 0 10px 25px rgba(94, 23, 235, 0.3);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
         }
 
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .btn-primary span, .btn-primary i { position: relative; z-index: 2; }
+
+        .btn-primary:hover::after { opacity: 1; }
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(94, 23, 235, 0.4);
+            box-shadow: 0 15px 35px rgba(109, 40, 217, 0.4);
         }
 
         .btn-header {
             padding: 10px 24px;
             font-size: 0.95rem;
+            background: rgba(109, 40, 217, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(109, 40, 217, 0.2);
+        }
+        
+        .btn-header:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
         /* HERO SECTION */
@@ -112,33 +169,34 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 7rem 5% 5rem;
-            background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.1), transparent 50%),
-                        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent 50%);
+            padding: 8rem 5% 6rem;
             position: relative;
         }
 
         .badges {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 2rem;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .badge {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             padding: 8px 20px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--primary-dark);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            border: 1px solid rgba(94, 23, 235, 0.1);
+            color: var(--text-main);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
+        .badge i { color: var(--primary); }
 
         .hero h1 {
             font-size: 4.5rem;
@@ -146,33 +204,46 @@
             color: var(--text-main);
             margin-bottom: 1.5rem;
             max-width: 900px;
+            font-weight: 900;
+            letter-spacing: -1px;
         }
 
-        .hero h1 span {
+        .typed-text {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--secondary);
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
 
         .hero p {
             font-size: 1.25rem;
             color: var(--text-muted);
             max-width: 700px;
             margin-bottom: 3rem;
+            font-weight: 400;
         }
 
-        /* FEATURES SECTION */
+        /* SECCIÓN CARACTERÍSTICAS */
         .features {
-            padding: 5rem 5%;
-            background: var(--white);
+            padding: 6rem 5%;
             position: relative;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--text-main);
-            margin-bottom: 3.5rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .grid-features {
@@ -184,60 +255,78 @@
         }
 
         .feature-card {
-            background: var(--bg-light);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
             padding: 3rem 2rem;
             border-radius: 24px;
-            text-align: center;
+            text-align: left;
             transition: all 0.4s ease;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            background: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transform-style: preserve-3d;
         }
 
         .feature-icon {
-            font-size: 2.5rem;
-            width: 80px;
-            height: 80px;
+            font-size: 2rem;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(168, 85, 247, 0.1);
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.1), rgba(192, 38, 211, 0.1));
             color: var(--primary);
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(109, 40, 217, 0.1);
         }
 
         .feature-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--text-main);
+            font-weight: 700;
         }
 
         .feature-card p {
             color: var(--text-muted);
             font-size: 1rem;
+            line-height: 1.7;
         }
 
-        /* STATS SECTION */
+        /* ESTADÍSTICAS PREMIUM */
+        .stats-wrapper {
+            padding: 4rem 5%;
+        }
+
         .stats {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background: linear-gradient(135deg, #1e1b4b, #4c1d95);
             color: var(--white);
-            padding: 5rem 5%;
+            padding: 5rem 2rem;
             text-align: center;
             border-radius: 40px;
-            max-width: 1200px;
-            margin: 4rem auto;
-            box-shadow: 0 20px 40px rgba(94, 23, 235, 0.2);
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 30px 60px rgba(76, 29, 149, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
         .stats h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 2rem;
+            margin-bottom: 3.5rem;
             font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         .stats-grid {
@@ -245,29 +334,31 @@
             justify-content: center;
             gap: 6rem;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .stat-item h2 {
-            font-size: 4.5rem;
+            font-size: 5rem;
             margin-bottom: 0.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, #e2e8f0);
+            font-weight: 900;
+            background: linear-gradient(to right, #a78bfa, #67e8f9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1;
         }
 
         .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 500;
+            font-size: 1rem;
+            opacity: 0.8;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        /* CREADORES SECTION */
+        /* CREADORES */
         .creators {
             padding: 6rem 5%;
-            background: var(--bg-light);
         }
 
         .creator-grid {
@@ -280,45 +371,60 @@
 
         .creator-card {
             background: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            border-radius: 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            border-top: 5px solid var(--primary);
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .creator-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .creator-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(109, 40, 217, 0.15);
         }
 
         .creator-avatar {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f3e8ff, #fae8ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            color: var(--white);
-            font-size: 3rem;
-            box-shadow: 0 8px 20px rgba(94, 23, 235, 0.2);
+            margin: 0 auto 2rem;
+            color: var(--primary);
+            font-size: 3.5rem;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.1);
         }
 
         .creator-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--text-main);
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
         }
 
         .creator-role {
+            display: inline-block;
+            background: rgba(109, 40, 217, 0.05);
             color: var(--primary);
-            font-weight: 600;
-            font-size: 0.95rem;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .creator-bio {
@@ -326,7 +432,7 @@
             font-size: 0.95rem;
         }
 
-        /* DOWNLOAD SECTION */
+        /* DESCARGA */
         .download-section {
             padding: 6rem 5%;
             display: flex;
@@ -335,6 +441,8 @@
             gap: 5rem;
             flex-wrap: wrap;
             background: var(--white);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .download-info {
@@ -345,81 +453,77 @@
             font-size: 3rem;
             color: var(--text-main);
             margin-bottom: 1rem;
-            line-height: 1.2;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .download-info p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .download-info ul {
             list-style: none;
-            margin: 2rem 0;
+            margin: 0 0 2.5rem 0;
         }
 
         .download-info ul li {
             margin-bottom: 15px;
-            font-size: 1.1rem;
-            color: var(--text-muted);
+            font-size: 1.05rem;
+            color: var(--text-main);
             display: flex;
             align-items: flex-start;
             gap: 12px;
+            font-weight: 500;
         }
 
         .download-info ul li i {
-            color: var(--accent);
+            color: var(--secondary);
             font-size: 1.2rem;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         .note {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.05);
             border-left: 4px solid #ef4444;
             padding: 15px;
             border-radius: 8px;
             font-size: 0.9rem;
             color: #b91c1c;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .qr-container {
-            background: var(--bg-light);
-            padding: 2.5rem;
+            background: var(--white);
+            padding: 3rem;
             border-radius: 30px;
             text-align: center;
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 20px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
             position: relative;
-        }
-
-        .qr-container::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 40px;
-            z-index: -1;
-            opacity: 0.1;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .qr-container h3 {
             margin-bottom: 1.5rem;
             color: var(--text-main);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         .qr-container img {
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             border-radius: 16px;
-            background: var(--white);
-            padding: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         /* FOOTER */
         footer {
-            background: #0f172a;
+            background: var(--bg-dark);
             color: #94a3b8;
-            padding: 4rem 5% 2rem;
+            padding: 5rem 5% 3rem;
             text-align: center;
         }
 
@@ -433,14 +537,16 @@
 
         footer strong {
             color: var(--white);
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-family: 'Outfit', sans-serif;
+            font-weight: 800;
         }
 
         footer a {
-            color: var(--secondary);
+            color: var(--primary-glow);
             text-decoration: none;
             transition: color 0.3s;
+            font-weight: 500;
         }
 
         footer a:hover {
@@ -449,15 +555,22 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
+            .hero h1 { font-size: 2.8rem; }
             .stats-grid { gap: 3rem; }
             .download-section { flex-direction: column; text-align: center; gap: 3rem; }
             .download-info ul li { justify-content: center; text-align: left; }
             .stat-item h2 { font-size: 3.5rem; }
+            .hero { padding: 5rem 5% 3rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- FONDO ANIMADO -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
     <!-- HEADER -->
     <header>
@@ -465,73 +578,90 @@
             <i class="fa-solid fa-lungs"></i> Mi Amiga la Pulmonar
         </a>
         <div>
-            <a href="#descargar" class="btn btn-primary btn-header">Descargar App</a>
+            <a href="#descargar" class="btn btn-header">Descargar Ahora</a>
         </div>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="badges">
+        <div class="badges" data-aos="fade-down" data-aos-delay="100">
             <span class="badge"><i class="fa-solid fa-gamepad"></i> Unreal Engine 5.6</span>
-            <span class="badge"><i class="fa-solid fa-stethoscope"></i> Validación Clínica 98.3%</span>
+            <span class="badge"><i class="fa-solid fa-microscope"></i> Validación Clínica</span>
             <span class="badge"><i class="fa-solid fa-mobile-screen"></i> Android APK</span>
         </div>
-        <h1>Transformando el <span>diagnóstico prenatal</span></h1>
-        <p>El primer simulador móvil gamificado para el entrenamiento en cardiología fetal. Domina la vista de tres vasos y tráquea (3VT) con 25 patologías generadas dinámicamente.</p>
-        <a href="#descargar" class="btn btn-primary">Descargar APK Ahora <i class="fa-solid fa-download"></i></a>
+        
+        <h1 data-aos="fade-up" data-aos-delay="200">
+            Transformando el <br>
+            <span class="typed-text"></span><span class="cursor"></span>
+        </h1>
+        
+        <p data-aos="fade-up" data-aos-delay="300">El primer simulador móvil gamificado para el entrenamiento en cardiología fetal. Domina la vista de tres vasos y tráquea (3VT) con 25 patologías generadas dinámicamente.</p>
+        
+        <div data-aos="fade-up" data-aos-delay="400">
+            <a href="#descargar" class="btn btn-primary">
+                <span>Descargar APK Premium</span> <i class="fa-solid fa-download"></i>
+            </a>
+        </div>
     </section>
 
-    <!-- FEATURES SECTION -->
+    <!-- CARACTERÍSTICAS -->
     <section class="features">
-        <h2 class="section-title">Una experiencia de aprendizaje inmersiva</h2>
+        <h2 class="section-title" data-aos="fade-up">Una experiencia de aprendizaje inmersiva</h2>
         <div class="grid-features">
-            <div class="feature-card">
+            
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="100">
                 <div class="feature-icon"><i class="fa-solid fa-heart-pulse"></i></div>
                 <h3>Simulación Interactiva</h3>
-                <p>Entrena con un algoritmo generador de 25 patologías (Posición, Tamaño, Número) diseñado para replicar casos reales con precisión clínica.</p>
+                <p>Entrena con un algoritmo generador de 25 patologías (Posición, Tamaño, Número) diseñado para replicar casos reales con una precisión del 98.3%.</p>
             </div>
-            <div class="feature-card">
+            
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="200">
                 <div class="feature-icon"><i class="fa-solid fa-coins"></i></div>
                 <h3>Gamificación Médica</h3>
                 <p>Gana "Fetcoins" por aciertos, usa el comodín tutor para asistencia inmediata y mantén la tensión cognitiva con el sistema de 3 vidas.</p>
             </div>
-            <div class="feature-card">
+            
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="300">
                 <div class="feature-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
                 <h3>Modo Offline Total</h3>
                 <p>Arquitectura híbrida diseñada para la realidad hospitalaria. La lógica de diagnóstico reside 100% en tu dispositivo, sin necesidad de internet.</p>
             </div>
+
         </div>
     </section>
 
-    <!-- STATS SECTION -->
-    <section class="stats">
-        <h2>Resultados de Validación Científica</h2>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h2>98.3%</h2>
-                <p>Precisión Algorítmica</p>
-            </div>
-            <div class="stat-item">
-                <h2>86.2</h2>
-                <p>Puntuación SUS (Excelente)</p>
+    <!-- ESTADÍSTICAS -->
+    <section class="stats-wrapper">
+        <div class="stats" data-aos="zoom-in">
+            <h2>Resultados de Validación Científica</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h2 class="counter" data-target="98.3">0</h2>
+                    <p>Precisión Algorítmica</p>
+                </div>
+                <div class="stat-item">
+                    <h2 class="counter" data-target="86.2">0</h2>
+                    <p>Puntuación SUS</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CREADORES SECTION -->
+    <!-- CREADORES -->
     <section class="creators">
-        <h2 class="section-title">Liderazgo Científico y Tecnológico</h2>
+        <h2 class="section-title" data-aos="fade-up">Liderazgo Científico y Tecnológico</h2>
         <div class="creator-grid">
-            <div class="creator-card">
+            
+            <div class="creator-card tilt" data-aos="fade-right" data-aos-delay="100">
                 <div class="creator-avatar">
                     <i class="fa-solid fa-user-doctor"></i>
                 </div>
                 <h3>Dr. Carlos García Guevara</h3>
-                <p class="creator-role">Especialista en Cardiología Fetal</p>
-                <p class="creator-bio">Responsable de la validación clínica y rigurosidad médica del simulador. Su experiencia garantiza que cada caso generado represente fielmente la anatomía y patología fetal real.</p>
+                <p class="creator-role">Cardiología Fetal</p>
+                <p class="creator-bio">Responsable de la validación clínica y rigurosidad médica del simulador. Su experiencia garantiza que cada caso represente fielmente la anatomía y patología fetal real.</p>
             </div>
             
-            <div class="creator-card">
+            <div class="creator-card tilt" data-aos="fade-left" data-aos-delay="200">
                 <div class="creator-avatar">
                     <i class="fa-solid fa-laptop-code"></i>
                 </div>
@@ -539,14 +669,15 @@
                 <p class="creator-role">Ingeniero en Ciencias Informáticas</p>
                 <p class="creator-bio">Arquitecto de software y desarrollador principal. Encargado de la implementación en Unreal Engine 5.6, la lógica algorítmica y la integración de la arquitectura offline/online.</p>
             </div>
+
         </div>
     </section>
 
-    <!-- DOWNLOAD SECTION -->
+    <!-- DESCARGA -->
     <section class="download-section" id="descargar">
-        <div class="download-info">
+        <div class="download-info" data-aos="fade-right">
             <h2>Lleva el futuro de la ecografía a tu bolsillo</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">Descarga directamente el archivo APK. Compatible con dispositivos Android modernos. No necesitas Google Play.</p>
+            <p>Descarga directamente el archivo APK. Compatible con dispositivos Android modernos. No necesitas Google Play.</p>
             
             <ul>
                 <li><i class="fa-solid fa-circle-check"></i> <strong>Descarga gratuita:</strong> Acceso a la plataforma con registro de cuenta Premium.</li>
@@ -556,7 +687,7 @@
 
             <!-- ENLACE DE DESCARGA DIRECTO AL RELEASE DE GITHUB -->
             <a href="https://github.com/leifdev0306/MALP-Site/releases/download/v1/MiAmigaLaPulmonar.apk" class="btn btn-primary" style="width: 100%;">
-                <i class="fa-brands fa-android"></i> Descargar APK Directo
+                <span><i class="fa-brands fa-android"></i> Descargar APK Directo</span>
             </a>
             
             <div class="note">
@@ -565,24 +696,89 @@
             </div>
         </div>
 
-        <div class="qr-container">
+        <div class="qr-container" data-aos="fade-left">
             <h3>Escanea para descargar</h3>
             <!-- CÓDIGO QR CON EL ENLACE CORRECTO -->
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://github.com/leifdev0306/MALP-Site/releases/download/v1/MiAmigaLaPulmonar.apk" alt="Código QR de Descarga">
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">Apunta con la cámara de tu móvil</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1.5rem;">Apunta con la cámara de tu móvil</p>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-content" data-aos="fade-up">
             <strong>Mi Amiga la Pulmonar</strong>
             <p>Un proyecto desarrollado por:</p>
-            <p>Dr. Carlos García Guevara & Ing. Javier Perdomo Batista</p>
+            <p style="font-size: 1.1rem; color: #e2e8f0;">Dr. Carlos García Guevara & Ing. Javier Perdomo Batista</p>
             <p>Contacto: <a href="mailto:leifdev0306@gmail.com">leifdev0306@gmail.com</a></p>
             <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">&copy; 2024 Mi Amiga la Pulmonar. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <!-- LIBRERÍAS JAVASCRIPT -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+
+    <script>
+        // 1. Inicializar Animaciones de Scroll
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+        });
+
+        // 2. Efecto Máquina de Escribir (Typed.js)
+        var typed = new Typed('.typed-text', {
+            strings: ['diagnóstico prenatal.', 'entrenamiento médico.', 'futuro de la ecografía.'],
+            typeSpeed: 60,
+            backSpeed: 40,
+            loop: true,
+            backDelay: 2000
+        });
+
+        // 3. Efecto 3D Tilt en Tarjetas
+        VanillaTilt.init(document.querySelectorAll(".tilt"), {
+            max: 10,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2,
+            scale: 1.02
+        });
+
+        // 4. Contador Animado
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; 
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = (count + inc).toFixed(1);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Detectar cuando el usuario llega a las estadísticas
+        let observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
+    </script>
 </body>
 </html>
