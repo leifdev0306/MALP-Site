@@ -13,7 +13,7 @@
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Librerías Dinámicas (AOS para scroll, Typed para texto, Tilt para 3D) -->
+    <!-- Librerías Dinámicas -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
@@ -50,7 +50,7 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* FONDO ANIMADO DE LUces */
+        /* FONDO ANIMADO DE LUCES */
         .bg-orbs {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -233,7 +233,7 @@
             font-weight: 400;
         }
 
-        /* SECCIÓN CÓMO FUNCIONA (Basado en views.py) */
+        /* SECCIÓN CÓMO FUNCIONA */
         .how-it-works {
             padding: 6rem 5%;
             background: var(--white);
@@ -360,7 +360,7 @@
             line-height: 1.7;
         }
 
-        /* SECCIÓN INSTITUCIONAL (Entidades) */
+        /* SECCIÓN INSTITUCIONAL */
         .institutional {
             padding: 6rem 5%;
             background: linear-gradient(135deg, #1e1b4b, #4c1d95);
@@ -422,34 +422,57 @@
             color: var(--accent);
         }
 
-        /* TUTORIAL / VIDEO */
+        /* TUTORIAL / VIDEO PORTRAIT */
         .tutorial {
             padding: 6rem 5%;
             background: var(--white);
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        /* CONTENEDOR ADAPTADO PARA VIDEO VERTICAL (9:16) */
         .video-container {
-            max-width: 900px;
-            margin: 0 auto;
-            border-radius: 30px;
+            max-width: 380px; /* Ancho típico de un teléfono */
+            width: 100%;
+            aspect-ratio: 9 / 16; /* Proporción vertical */
+            border-radius: 40px; /* Bordes redondeados tipo smartphone */
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(109, 40, 217, 0.15);
+            box-shadow: 0 25px 50px rgba(109, 40, 217, 0.2);
             position: relative;
-            border: 8px solid var(--white);
+            border: 12px solid #000; /* Simula el marco de un teléfono */
             background: #000;
-            aspect-ratio: 16 / 9;
             transition: transform 0.4s ease;
         }
 
+        /* Efecto de "muesca" superior del teléfono */
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
         .video-container:hover {
-            transform: scale(1.01);
+            transform: translateY(-5px) scale(1.02);
         }
 
         .video-container video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Ajusta el video para llenar el marco sin deformarlo */
             display: block;
         }
 
@@ -655,7 +678,18 @@
             .download-section { flex-direction: column; text-align: center; gap: 3rem; }
             .download-info ul li { justify-content: center; text-align: left; }
             .hero { padding: 5rem 5% 3rem; }
-            .video-container { border-radius: 20px; border-width: 4px; }
+            
+            /* Ajustes para el video en móvil */
+            .video-container { 
+                max-width: 100%; 
+                border-radius: 20px; 
+                border-width: 6px; 
+            }
+            .video-container::before {
+                width: 80px;
+                height: 15px;
+            }
+
             .institutional { flex-direction: column; text-align: center; border-radius: 20px; }
         }
     </style>
@@ -701,7 +735,7 @@
         </div>
     </section>
 
-    <!-- CÓMO FUNCIONA (Basado en la lógica de views.py) -->
+    <!-- CÓMO FUNCIONA -->
     <section class="how-it-works">
         <h2 class="section-title" data-aos="fade-up">Tu camino hacia la excelencia clínica</h2>
         <div class="steps-grid">
@@ -781,7 +815,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN INSTITUCIONAL (Lógica de Entidades) -->
+    <!-- SECCIÓN INSTITUCIONAL -->
     <section class="institutional" data-aos="zoom-in">
         <div class="inst-content">
             <h2>¿Eres una Institución Médica?</h2>
@@ -800,19 +834,22 @@
         </div>
     </section>
 
-    <!-- TUTORIAL / VIDEO -->
+    <!-- TUTORIAL / VIDEO PORTRAIT -->
     <section class="tutorial">
         <h2 class="section-title" data-aos="fade-up">Aprende a usar la plataforma</h2>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.1rem;" data-aos="fade-up" data-aos-delay="100">
             Mira el video tutorial paso a paso para registrarte y comenzar tu entrenamiento.
         </p>
         
-        <div class="video-container" data-aos="zoom-in" data-aos-delay="200">
-            <!-- VIDEO DESDE GITHUB RELEASES: Asegúrate de que el archivo se llame "video.mp4" -->
-            <video controls preload="metadata">
-                <source src="https://github.com/leifdev0306/MALP-Site/releases/download/v1/video.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de este video.
-            </video>
+        <!-- NUEVO CONTENEDOR PARA VIDEO VERTICAL -->
+        <div class="video-wrapper" data-aos="zoom-in" data-aos-delay="200">
+            <div class="video-container">
+                <!-- Asegúrate de que el nombre del archivo sea video.mp4 en tu release -->
+                <video controls preload="metadata" playsinline>
+                    <source src="https://github.com/leifdev0306/MALP-Site/releases/download/v1/video.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de este video.
+                </video>
+            </div>
         </div>
     </section>
 
