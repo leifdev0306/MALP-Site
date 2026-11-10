@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Amiga la Pulmonar - Simulador Médico Premium</title>
     
-    <!-- Fuentes -->
+    <!-- Fuentes Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Librerías Dinámicas -->
+    <!-- Librerías Dinámicas (AOS para scroll, Typed para texto, Tilt para 3D) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
@@ -27,6 +27,7 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --white: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -49,7 +50,7 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* FONDO DINÁMICO */
+        /* FONDO ANIMADO DE LUces */
         .bg-orbs {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -60,16 +61,17 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(100px);
             opacity: 0.4;
-            animation: float 10s infinite ease-in-out alternate;
+            animation: float 12s infinite ease-in-out alternate;
         }
-        .orb-1 { width: 400px; height: 400px; background: #d8b4fe; top: -100px; left: -100px; }
-        .orb-2 { width: 300px; height: 300px; background: #67e8f9; bottom: 20%; right: -50px; animation-delay: -5s; }
+        .orb-1 { width: 500px; height: 500px; background: #d8b4fe; top: -150px; left: -150px; }
+        .orb-2 { width: 400px; height: 400px; background: #67e8f9; bottom: 10%; right: -100px; animation-delay: -6s; }
+        .orb-3 { width: 300px; height: 300px; background: #f0abfc; top: 40%; left: 20%; animation-delay: -3s; }
         
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 50px) scale(1.1); }
+            100% { transform: translate(60px, 60px) scale(1.1); }
         }
 
         /* HEADER PREMIUM */
@@ -106,7 +108,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* BOTONES NEÓN */
+        /* BOTONES PREMIUM */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -231,9 +233,10 @@
             font-weight: 400;
         }
 
-        /* SECCIÓN CARACTERÍSTICAS */
-        .features {
+        /* SECCIÓN CÓMO FUNCIONA (Basado en views.py) */
+        .how-it-works {
             padding: 6rem 5%;
+            background: var(--white);
             position: relative;
         }
 
@@ -246,6 +249,70 @@
             letter-spacing: -0.5px;
         }
 
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: var(--bg-light);
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            background: var(--white);
+            border-color: rgba(109, 40, 217, 0.1);
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(109, 40, 217, 0.05);
+            position: absolute;
+            top: 10px; right: 20px;
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+        }
+
+        .step-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.1), rgba(192, 38, 211, 0.1));
+            color: var(--primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .step-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* SECCIÓN CARACTERÍSTICAS DESTACADAS */
+        .features {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
         .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -255,7 +322,7 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             padding: 3rem 2rem;
             border-radius: 24px;
@@ -293,25 +360,24 @@
             line-height: 1.7;
         }
 
-        /* ESTADÍSTICAS PREMIUM */
-        .stats-wrapper {
-            padding: 4rem 5%;
-        }
-
-        .stats {
+        /* SECCIÓN INSTITUCIONAL (Entidades) */
+        .institutional {
+            padding: 6rem 5%;
             background: linear-gradient(135deg, #1e1b4b, #4c1d95);
             color: var(--white);
-            padding: 5rem 2rem;
-            text-align: center;
             border-radius: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            box-shadow: 0 30px 60px rgba(76, 29, 149, 0.3);
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
         }
 
-        .stats::before {
+        .institutional::before {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
@@ -321,39 +387,70 @@
 
         @keyframes rotate { 100% { transform: rotate(360deg); } }
 
-        .stats h2 {
-            font-size: 2rem;
-            margin-bottom: 3.5rem;
-            font-weight: 600;
+        .inst-content {
+            flex: 1;
+            min-width: 300px;
             position: relative;
             z-index: 1;
         }
 
-        .stats-grid {
+        .inst-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .inst-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .inst-features {
+            list-style: none;
+        }
+
+        .inst-features li {
+            margin-bottom: 1rem;
             display: flex;
-            justify-content: center;
-            gap: 6rem;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+
+        .inst-features li i {
+            color: var(--accent);
+        }
+
+        /* TUTORIAL / VIDEO */
+        .tutorial {
+            padding: 6rem 5%;
+            background: var(--white);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(109, 40, 217, 0.15);
             position: relative;
-            z-index: 1;
+            border: 8px solid var(--white);
+            background: #000;
+            aspect-ratio: 16 / 9;
+            transition: transform 0.4s ease;
         }
 
-        .stat-item h2 {
-            font-size: 5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 900;
-            background: linear-gradient(to right, #a78bfa, #67e8f9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
+        .video-container:hover {
+            transform: scale(1.01);
         }
 
-        .stat-item p {
-            font-size: 1rem;
-            opacity: 0.8;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* CREADORES */
@@ -442,7 +539,6 @@
             flex-wrap: wrap;
             background: var(--white);
             border-top: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .download-info {
@@ -556,11 +652,11 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
-            .stats-grid { gap: 3rem; }
             .download-section { flex-direction: column; text-align: center; gap: 3rem; }
             .download-info ul li { justify-content: center; text-align: left; }
-            .stat-item h2 { font-size: 3.5rem; }
             .hero { padding: 5rem 5% 3rem; }
+            .video-container { border-radius: 20px; border-width: 4px; }
+            .institutional { flex-direction: column; text-align: center; border-radius: 20px; }
         }
     </style>
 </head>
@@ -570,6 +666,7 @@
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
     <!-- HEADER -->
@@ -604,46 +701,118 @@
         </div>
     </section>
 
-    <!-- CARACTERÍSTICAS -->
+    <!-- CÓMO FUNCIONA (Basado en la lógica de views.py) -->
+    <section class="how-it-works">
+        <h2 class="section-title" data-aos="fade-up">Tu camino hacia la excelencia clínica</h2>
+        <div class="steps-grid">
+            
+            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">01</div>
+                <div class="step-icon"><i class="fa-solid fa-download"></i></div>
+                <h3>Descarga e Instala</h3>
+                <p>Descarga el archivo APK desde nuestro sitio oficial. No necesitas Google Play, permitiendo el acceso universal desde cualquier región.</p>
+            </div>
+            
+            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">02</div>
+                <div class="step-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                <h3>Registro y Verificación</h3>
+                <p>Crea tu cuenta con tu correo. Recibirás un código de 6 dígitos para verificar tu identidad y activar tu perfil médico de forma segura.</p>
+            </div>
+            
+            <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-number">03</div>
+                <div class="step-icon"><i class="fa-solid fa-key"></i></div>
+                <h3>Acceso Premium o Entidad</h3>
+                <p>Inicia sesión con tu contraseña. Si perteneces a una institución aliada (IMEF, hospitales), ingresa tu código de entidad para desbloquear el acceso institucional.</p>
+            </div>
+
+            <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-number">04</div>
+                <div class="step-icon"><i class="fa-solid fa-gamepad"></i></div>
+                <h3>¡A Entrenar!</h3>
+                <p>Resuelve casos clínicos, gana Fetcoins por tus aciertos, canjea códigos de recompensa y escala en el ranking global de residentes.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS DESTACADAS -->
     <section class="features">
         <h2 class="section-title" data-aos="fade-up">Una experiencia de aprendizaje inmersiva</h2>
         <div class="grid-features">
             
             <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="100">
                 <div class="feature-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                <h3>Simulación Interactiva</h3>
+                <h3>Simulación Clínica 3VT</h3>
                 <p>Entrena con un algoritmo generador de 25 patologías (Posición, Tamaño, Número) diseñado para replicar casos reales con una precisión del 98.3%.</p>
             </div>
             
             <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="200">
                 <div class="feature-icon"><i class="fa-solid fa-coins"></i></div>
-                <h3>Gamificación Médica</h3>
-                <p>Gana "Fetcoins" por aciertos, usa el comodín tutor para asistencia inmediata y mantén la tensión cognitiva con el sistema de 3 vidas.</p>
+                <h3>Economía de Fetcoins</h3>
+                <p>Gana "Fetcoins" por aciertos clínicos. Utiliza la tienda virtual para desbloquear catálogos educativos o usa el comodín tutor cuando necesites asistencia.</p>
+            </div>
+
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon"><i class="fa-solid fa-ticket"></i></div>
+                <h3>Códigos de Canje (Redeem)</h3>
+                <p>Ingresa códigos promocionales en la app para obtener recompensas exclusivas, Fetcoins extra o desbloqueos inmediatos de patologías avanzadas.</p>
             </div>
             
-            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h3>Ranking Global y Mensajería</h3>
+                <p>Compite por el primer lugar en la tabla de clasificación. Recibe notificaciones y mensajes directos de los administradores sobre nuevos casos y actualizaciones.</p>
+            </div>
+
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="500">
                 <div class="feature-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
-                <h3>Modo Offline Total</h3>
-                <p>Arquitectura híbrida diseñada para la realidad hospitalaria. La lógica de diagnóstico reside 100% en tu dispositivo, sin necesidad de internet.</p>
+                <h3>Modo Offline Inteligente</h3>
+                <p>Arquitectura diseñada para la realidad hospitalaria. La lógica de diagnóstico reside 100% en tu dispositivo. Juega sin internet y sincroniza tu progreso luego.</p>
+            </div>
+            
+            <div class="feature-card tilt" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Seguridad y Datos Médicos</h3>
+                <p>Tu progreso está respaldado por un servidor en Django con PostgreSQL. Los códigos de entidad garantizan que solo personal autorizado acceda a ciertos módulos.</p>
             </div>
 
         </div>
     </section>
 
-    <!-- ESTADÍSTICAS -->
-    <section class="stats-wrapper">
-        <div class="stats" data-aos="zoom-in">
-            <h2>Resultados de Validación Científica</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h2 class="counter" data-target="98.3">0</h2>
-                    <p>Precisión Algorítmica</p>
-                </div>
-                <div class="stat-item">
-                    <h2 class="counter" data-target="86.2">0</h2>
-                    <p>Puntuación SUS</p>
-                </div>
-            </div>
+    <!-- SECCIÓN INSTITUCIONAL (Lógica de Entidades) -->
+    <section class="institutional" data-aos="zoom-in">
+        <div class="inst-content">
+            <h2>¿Eres una Institución Médica?</h2>
+            <p>Ofrecemos integración total para hospitales, universidades y centros de diagnóstico (como el IMEF). Personalizamos la plataforma para sus residentes.</p>
+            <ul class="inst-features">
+                <li><i class="fa-solid fa-check-circle"></i> Códigos de Entidad únicos para tus alumnos.</li>
+                <li><i class="fa-solid fa-check-circle"></i> Límites de usuarios configurables y control de licencias.</li>
+                <li><i class="fa-solid fa-check-circle"></i> Panel de administración web para rastrear el progreso.</li>
+                <li><i class="fa-solid fa-check-circle"></i> Renovación de suscripción y facturación gestionada.</li>
+            </ul>
+        </div>
+        <div style="flex: 0 0 auto; position: relative; z-index: 1;">
+            <a href="mailto:leifdev0306@gmail.com" class="btn btn-primary" style="background: var(--white); color: var(--primary);">
+                <span>Contactar para Licencias</span> <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- TUTORIAL / VIDEO -->
+    <section class="tutorial">
+        <h2 class="section-title" data-aos="fade-up">Aprende a usar la plataforma</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.1rem;" data-aos="fade-up" data-aos-delay="100">
+            Mira el video tutorial paso a paso para registrarte y comenzar tu entrenamiento.
+        </p>
+        
+        <div class="video-container" data-aos="zoom-in" data-aos-delay="200">
+            <!-- VIDEO DESDE GITHUB RELEASES: Asegúrate de que el archivo se llame "video.mp4" -->
+            <video controls preload="metadata">
+                <source src="https://github.com/leifdev0306/MALP-Site/releases/download/v1/video.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de este video.
+            </video>
         </div>
     </section>
 
@@ -745,40 +914,6 @@
             "max-glare": 0.2,
             scale: 1.02
         });
-
-        // 4. Contador Animado
-        const counters = document.querySelectorAll('.counter');
-        const speed = 200; 
-
-        const animateCounters = () => {
-            counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
-                    const inc = target / speed;
-
-                    if (count < target) {
-                        counter.innerText = (count + inc).toFixed(1);
-                        setTimeout(updateCount, 15);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCount();
-            });
-        }
-
-        // Detectar cuando el usuario llega a las estadísticas
-        let observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting){
-                    animateCounters();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(document.querySelector('.stats'));
     </script>
 </body>
 </html>
